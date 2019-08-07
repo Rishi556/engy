@@ -22,13 +22,42 @@ function transfer(symbol, to, quantity, memo, privateActiveKey, from, callback){
             validateTransaction(result.id, (trx) => {
                 var logs = JSON.parse(trx.logs)
                 if (logs.errors){
-                    callback({success : false, err : logs.errors, message : logs.errors[0]})
+                    if (callback){
+                        callback({success : false, err : logs.errors, message : logs.errors[0]})
+                    }
                 } else {
-                    callback({success : true, err : null, message : "Successfully transferred.", data : trx})
+                    if (callback){
+                        callback({success : true, err : null, message : "Successfully transferred.", data : trx})
+                    }
                 }
             })
         } else {
-            callback({success : false, err : err, message : "Error broadcasting to Steem."})
+            if (callback){
+                callback({success : false, err : err, message : "Error broadcasting to Steem."})
+            }
+        }
+    })
+}
+
+/**
+ * Claims an account's reward token.
+ * @param {String} symbol The symbol of the token to claim.
+ * @param {String} privatePostingKey The private posting key of the claiming account.
+ * @param {String} account The claiming account.
+ * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ */
+function claim(symbol,privatePostingKey, account, callback){
+    symbol = symbol.toUpperCase()
+    var sendJSON = {"symbol": symbol}
+    steem.broadcast.customJson(privatePostingKey, null, [account], "scot_claim_token", JSON.stringify(sendJSON), function(err, result) {
+        if (!result){
+            if (callback) {
+                callback({success : false, err : err, message : "Error broadcasting to Steem."})
+            }
+        } else {
+            if (callback){
+                callback({success : true, err : null, message : "Successfully claimed.", data : result})
+            }
         }
     })
 }
@@ -47,5 +76,6 @@ function validateTransaction(id, callback){
 }
 
 module.exports = {
-    transfer : transfer
+    transfer : transfer,
+    claim : claim
 }
