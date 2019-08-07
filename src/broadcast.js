@@ -40,13 +40,13 @@ function transfer(symbol, to, quantity, memo, privateActiveKey, from, callback){
 }
 
 /**
- * Claims an account's reward token.
+ * Claims an account's Scot token reward.
  * @param {String} symbol The symbol of the token to claim.
  * @param {String} privatePostingKey The private posting key of the claiming account.
  * @param {String} account The claiming account.
  * @param {Object} callback Callback. Check if success is true to see if sending worked.
  */
-function claim(symbol,privatePostingKey, account, callback){
+function claimScotToken(symbol,privatePostingKey, account, callback){
     symbol = symbol.toUpperCase()
     var sendJSON = {"symbol": symbol}
     steem.broadcast.customJson(privatePostingKey, null, [account], "scot_claim_token", JSON.stringify(sendJSON), function(err, result) {
@@ -77,5 +77,5 @@ function validateTransaction(id, callback){
 
 module.exports = {
     transfer : transfer,
-    claim : claim
+    claimScotToken : claimScotToken
 }
