@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "rishi556",
+  "license": "MIT",
   "dependencies": {
     "sscjs": "0.0.8",
     "steem": "^0.7.6"
