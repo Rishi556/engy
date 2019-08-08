@@ -13,7 +13,7 @@ function getUserTokenBalance(account, symbol, callback){
         if (err) {
             callback({success : false, message : "User hasn't interacted with the token or an error occured.", err : err})
         } else {
-            console.log({success : true, err : null, data : result})
+            callback({success : true, err : null, data : result})
         }
     })
 }
