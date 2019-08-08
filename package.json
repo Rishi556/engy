@@ -1,6 +1,6 @@
 {
   "name": "engy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Makes using steem-engine a lot easier.",
   "main": "index.js",
   "scripts": {
