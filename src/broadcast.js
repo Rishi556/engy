@@ -135,6 +135,40 @@ function stake(symbol, to, quantity, privateActiveKey, from, callback){
 }
 
 /**
+ * Unstake tokens.
+ * @param {String} symbol The symbol of the token to unstake.
+ * @param {String} quantity The amount of the token to unstake.
+ * @param {String} privateActiveKey The private active key of the unstaking account.
+ * @param {String} from The unstaking account.
+ * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ */
+function unstake(symbol, quantity, privateActiveKey, from, callback){
+    symbol = symbol.toUpperCase()
+    quantity = quantity.toString()
+    var sendJSON = {"contractName": "tokens", "contractAction": "unstake", "contractPayload":{"symbol": symbol, "quantity": quantity}}
+    steem.broadcast.customJson(privateActiveKey, [from], null, "ssc-mainnet1", JSON.stringify(sendJSON), function(err, result) {
+        if (result){
+            validateTransaction(result.id, (trx) => {
+                var logs = JSON.parse(trx.logs)
+                if (logs.errors){
+                    if (callback){
+                        callback({success : false, err : logs.errors, message : logs.errors[0]})
+                    }
+                } else {
+                    if (callback){
+                        callback({success : true, err : null, message : "Successfully staked.", data : trx})
+                    }
+                }
+            })
+        } else {
+            if (callback){
+                callback({success : false, err : err, message : "Error broadcasting to Steem."})
+            }
+        }
+    })
+}
+
+/**
  * Delegate tokens. Please note to delegate amount to increase by, not total to delegate.
  * @param {String} symbol The symbol of the token to delegate.
  * @param {String} to The reciever of the delegated tokens.
@@ -224,6 +258,7 @@ module.exports = {
     issue : issue,
     claimScotToken : claimScotToken,
     stake : stake,
+    unstake : unstake,
     delegate : delegate,
     undelegate : undelegate
 }
