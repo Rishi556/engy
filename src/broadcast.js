@@ -63,7 +63,7 @@ function claimScotToken(symbol,privatePostingKey, account, callback){
 }
 
 /**
- * Stake tokens..
+ * Stake tokens.
  * @param {String} symbol The symbol of the token to stake.
  * @param {String} to The reciever of the staked tokens.
  * @param {String} quantity The amount of the token to stake.
@@ -98,13 +98,48 @@ function stakeToken(symbol, to, quantity, privateActiveKey, from, callback){
     })
 }
 
+/**
+ * Delegate tokens. Please note to delegate amount to increase by, not total to delegate.
+ * @param {String} symbol The symbol of the token to delegate.
+ * @param {String} to The reciever of the delegated tokens.
+ * @param {String} quantity The amount of the token to delegate.
+ * @param {String} privateActiveKey The private active key of the delegating account.
+ * @param {String} from The delegating account.
+ * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ */
+function delegateToken(symbol, to, quantity, privateActiveKey, from, callback){
+    symbol = symbol.toUpperCase()
+    to = to.toLowerCase()
+    quantity = quantity.toString()
+    var sendJSON = {"contractName": "tokens", "contractAction": "delegate", "contractPayload":{"to": to, "symbol": symbol, "quantity": quantity}}
+    steem.broadcast.customJson(privateActiveKey, [from], null, "ssc-mainnet1", JSON.stringify(sendJSON), function(err, result) {
+        if (result){
+            validateTransaction(result.id, (trx) => {
+                var logs = JSON.parse(trx.logs)
+                if (logs.errors){
+                    if (callback){
+                        callback({success : false, err : logs.errors, message : logs.errors[0]})
+                    }
+                } else {
+                    if (callback){
+                        callback({success : true, err : null, message : "Successfully delegated.", data : trx})
+                    }
+                }
+            })
+        } else {
+            if (callback){
+                callback({success : false, err : err, message : "Error broadcasting to Steem."})
+            }
+        }
+    })
+}
+
 function validateTransaction(id, callback){
     ssc.getTransactionInfo(id, (err, response) => {
         if (!response){
             setTimeout(() => {
                 validateTransaction(id, callback)
             }, 1000 * 0.5)
-            
         } else {
             return callback(response)
         }
@@ -114,5 +149,6 @@ function validateTransaction(id, callback){
 module.exports = {
     transfer : transfer,
     claimScotToken : claimScotToken,
-    stakeToken : stakeToken
+    stakeToken : stakeToken,
+    delegateToken : delegateToken
 }
