@@ -11,9 +11,13 @@ const ssc = new SSC('https://api.steem-engine.com/rpc')
 function getUserTokenBalance(account, symbol, callback){
     ssc.findOne('tokens','balances', { account: account, symbol : symbol}, (err, result) => {
         if (err) {
-            callback({success : false, message : "User hasn't interacted with the token or an error occured.", err : err})
+            if (callback){
+               callback({success : false, message : "User hasn't interacted with the token or an error occured.", err : err}) 
+            }
         } else {
-            callback({success : true, err : null, data : result})
+            if (callback){
+                callback({success : true, err : null, data : result})
+            }
         }
     })
 }
