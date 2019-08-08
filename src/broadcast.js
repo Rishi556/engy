@@ -107,7 +107,7 @@ function claimScotToken(symbol,privatePostingKey, account, callback){
  * @param {String} from The staking account.
  * @param {Object} callback Callback. Check if success is true to see if sending worked.
  */
-function stakeToken(symbol, to, quantity, privateActiveKey, from, callback){
+function stake(symbol, to, quantity, privateActiveKey, from, callback){
     symbol = symbol.toUpperCase()
     to = to.toLowerCase()
     quantity = quantity.toString()
@@ -143,7 +143,7 @@ function stakeToken(symbol, to, quantity, privateActiveKey, from, callback){
  * @param {String} from The delegating account.
  * @param {Object} callback Callback. Check if success is true to see if sending worked.
  */
-function delegateToken(symbol, to, quantity, privateActiveKey, from, callback){
+function delegate(symbol, to, quantity, privateActiveKey, from, callback){
     symbol = symbol.toUpperCase()
     to = to.toLowerCase()
     quantity = quantity.toString()
@@ -179,7 +179,7 @@ function delegateToken(symbol, to, quantity, privateActiveKey, from, callback){
  * @param {String} undelegator The undelegating account.
  * @param {Object} callback Callback. Check if success is true to see if sending worked.
  */
-function undelegateToken(symbol, undelegateFrom, quantity, privateActiveKey, undelegator, callback){
+function undelegate(symbol, undelegateFrom, quantity, privateActiveKey, undelegator, callback){
     symbol = symbol.toUpperCase()
     undelegateFrom = undelegateFrom.toLowerCase()
     quantity = quantity.toString()
@@ -223,7 +223,7 @@ module.exports = {
     transfer : transfer,
     issue : issue,
     claimScotToken : claimScotToken,
-    stakeToken : stakeToken,
-    delegateToken : delegateToken,
-    undelegateToken : undelegateToken
+    stake : stake,
+    delegate : delegate,
+    undelegate : undelegate
 }
