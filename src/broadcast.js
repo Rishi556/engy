@@ -10,7 +10,7 @@ const ssc = new SSC('https://api.steem-engine.com/rpc')
  * @param {String} quantity The amount of the token to send.
  * @param {String} privateActiveKey The private active key of the sending account.
  * @param {String} from The sending account.
- * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ * @param {Object} callback Callback. Check if success is true to see if it worked.
  */
 function transfer(symbol, to, quantity, memo, privateActiveKey, from, callback){
     symbol = symbol.toUpperCase()
@@ -46,7 +46,7 @@ function transfer(symbol, to, quantity, memo, privateActiveKey, from, callback){
  * @param {String} quantity The amount of the token to issue.
  * @param {String} privateActiveKey The private active key of the issuing account.
  * @param {String} from The issuing account.
- * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ * @param {Object} callback Callback. Check if success is true to see if it worked.
  */
 function issue(symbol, to, quantity, memo, privateActiveKey, from, callback){
     symbol = symbol.toUpperCase()
@@ -80,7 +80,7 @@ function issue(symbol, to, quantity, memo, privateActiveKey, from, callback){
  * @param {String} symbol The symbol of the token to claim.
  * @param {String} privatePostingKey The private posting key of the claiming account.
  * @param {String} account The claiming account.
- * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ * @param {Object} callback Callback. Check if success is true to see if it worked.
  */
 function claimScotToken(symbol,privatePostingKey, account, callback){
     symbol = symbol.toUpperCase()
@@ -105,7 +105,7 @@ function claimScotToken(symbol,privatePostingKey, account, callback){
  * @param {String} quantity The amount of the token to stake.
  * @param {String} privateActiveKey The private active key of the staking account.
  * @param {String} from The staking account.
- * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ * @param {Object} callback Callback. Check if success is true to see if it worked.
  */
 function stake(symbol, to, quantity, privateActiveKey, from, callback){
     symbol = symbol.toUpperCase()
@@ -140,7 +140,7 @@ function stake(symbol, to, quantity, privateActiveKey, from, callback){
  * @param {String} quantity The amount of the token to unstake.
  * @param {String} privateActiveKey The private active key of the unstaking account.
  * @param {String} from The unstaking account.
- * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ * @param {Object} callback Callback. Check if success is true to see if it worked.
  */
 function unstake(symbol, quantity, privateActiveKey, from, callback){
     symbol = symbol.toUpperCase()
@@ -175,7 +175,7 @@ function unstake(symbol, quantity, privateActiveKey, from, callback){
  * @param {String} quantity The amount of the token to delegate.
  * @param {String} privateActiveKey The private active key of the delegating account.
  * @param {String} from The delegating account.
- * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ * @param {Object} callback Callback. Check if success is true to see if it worked.
  */
 function delegate(symbol, to, quantity, privateActiveKey, from, callback){
     symbol = symbol.toUpperCase()
@@ -211,7 +211,7 @@ function delegate(symbol, to, quantity, privateActiveKey, from, callback){
  * @param {String} quantity The amount of the token to undelegate.
  * @param {String} privateActiveKey The private active key of the undelegating account.
  * @param {String} undelegator The undelegating account.
- * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ * @param {Object} callback Callback. Check if success is true to see if it worked.
  */
 function undelegate(symbol, undelegateFrom, quantity, privateActiveKey, undelegator, callback){
     symbol = symbol.toUpperCase()
