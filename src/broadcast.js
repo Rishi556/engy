@@ -63,7 +63,7 @@ function issue(symbol, to, quantity, memo, privateActiveKey, from, callback){
                     }
                 } else {
                     if (callback){
-                        callback({success : true, err : null, message : "Successfully transferred.", data : trx})
+                        callback({success : true, err : null, message : "Successfully issued.", data : trx})
                     }
                 }
             })
@@ -156,7 +156,7 @@ function unstake(symbol, quantity, privateActiveKey, from, callback){
                     }
                 } else {
                     if (callback){
-                        callback({success : true, err : null, message : "Successfully staked.", data : trx})
+                        callback({success : true, err : null, message : "Successfully unstaked.", data : trx})
                     }
                 }
             })
