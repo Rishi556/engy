@@ -40,6 +40,42 @@ function transfer(symbol, to, quantity, memo, privateActiveKey, from, callback){
 }
 
 /**
+ * Issue tokens to steem-engine accounts. This only works from the account that created the token.
+ * @param {String} symbol The symbol of the token to issue.
+ * @param {String} to The reciever of the token.
+ * @param {String} quantity The amount of the token to issue.
+ * @param {String} privateActiveKey The private active key of the issuing account.
+ * @param {String} from The issuing account.
+ * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ */
+function issue(symbol, to, quantity, memo, privateActiveKey, from, callback){
+    symbol = symbol.toUpperCase()
+    to = to.toLowerCase()
+    quantity = quantity.toString()
+    var sendJSON = {"contractName":"tokens","contractAction": "issue" ,"contractPayload":{"symbol": symbol,"to": to,"quantity": quantity,"memo": memo}}
+    steem.broadcast.customJson(privateActiveKey, [from], null, "ssc-mainnet1", JSON.stringify(sendJSON), function(err, result) {
+        if (result){
+            validateTransaction(result.id, (trx) => {
+                var logs = JSON.parse(trx.logs)
+                if (logs.errors){
+                    if (callback){
+                        callback({success : false, err : logs.errors, message : logs.errors[0]})
+                    }
+                } else {
+                    if (callback){
+                        callback({success : true, err : null, message : "Successfully transferred.", data : trx})
+                    }
+                }
+            })
+        } else {
+            if (callback){
+                callback({success : false, err : err, message : "Error broadcasting to Steem."})
+            }
+        }
+    })
+}
+
+/**
  * Claims an account's Scot token reward.
  * @param {String} symbol The symbol of the token to claim.
  * @param {String} privatePostingKey The private posting key of the claiming account.
@@ -185,6 +221,7 @@ function validateTransaction(id, callback){
 
 module.exports = {
     transfer : transfer,
+    issue : issue,
     claimScotToken : claimScotToken,
     stakeToken : stakeToken,
     delegateToken : delegateToken,
