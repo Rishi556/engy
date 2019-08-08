@@ -134,6 +134,43 @@ function delegateToken(symbol, to, quantity, privateActiveKey, from, callback){
     })
 }
 
+/**
+ * Undelegate tokens. Please note to undelegate amount to undelegate by, not total to delegate.
+ * @param {String} symbol The symbol of the token to undelegate.
+ * @param {String} undelegateFrom The user to take delegation from.
+ * @param {String} quantity The amount of the token to undelegate.
+ * @param {String} privateActiveKey The private active key of the undelegating account.
+ * @param {String} undelegator The undelegating account.
+ * @param {Object} callback Callback. Check if success is true to see if sending worked.
+ */
+function undelegateToken(symbol, undelegateFrom, quantity, privateActiveKey, undelegator, callback){
+    symbol = symbol.toUpperCase()
+    undelegateFrom = undelegateFrom.toLowerCase()
+    quantity = quantity.toString()
+    var sendJSON = {"contractName": "tokens", "contractAction": "undelegate", "contractPayload":{"from": undelegateFrom, "symbol": symbol, "quantity": quantity}}
+    steem.broadcast.customJson(privateActiveKey, [undelegator], null, "ssc-mainnet1", JSON.stringify(sendJSON), function(err, result) {
+        if (result){
+            validateTransaction(result.id, (trx) => {
+                var logs = JSON.parse(trx.logs)
+                if (logs.errors){
+                    if (callback){
+                        callback({success : false, err : logs.errors, message : logs.errors[0]})
+                    }
+                } else {
+                    if (callback){
+                        callback({success : true, err : null, message : "Successfully undelegated.", data : trx})
+                    }
+                }
+            })
+        } else {
+            if (callback){
+                callback({success : false, err : err, message : "Error broadcasting to Steem."})
+            }
+        }
+    })
+}
+
+
 function validateTransaction(id, callback){
     ssc.getTransactionInfo(id, (err, response) => {
         if (!response){
@@ -150,5 +187,6 @@ module.exports = {
     transfer : transfer,
     claimScotToken : claimScotToken,
     stakeToken : stakeToken,
-    delegateToken : delegateToken
+    delegateToken : delegateToken,
+    undelegateToken : undelegateToken
 }
