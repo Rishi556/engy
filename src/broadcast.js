@@ -207,7 +207,7 @@ function delegate(symbol, to, quantity, privateActiveKey, from, callback){
 /**
  * Undelegate tokens. Please note to undelegate amount to undelegate by, not total to delegate.
  * @param {String} symbol The symbol of the token to undelegate.
- * @param {String} undelegateFrom The user to take delegation from.
+ * @param {String} undelegateFrom The account to take delegation from.
  * @param {String} quantity The amount of the token to undelegate.
  * @param {String} privateActiveKey The private active key of the undelegating account.
  * @param {String} undelegator The undelegating account.
