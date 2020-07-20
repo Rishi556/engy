@@ -1,9 +1,5 @@
-var broadcast = require("./src/broadcast.js")
-var api = require("./src/api.js")
-var scot = require("./src/scot.js")
+let config = require("./config.js")
 
 module.exports = {
-    broadcast : broadcast,
-    api : api,
-    scot : scot
+  config = require("./config")
 }
