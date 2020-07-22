@@ -13,11 +13,11 @@ let config = require("../../config.js")
 async function getNFTDetails(nftID, query, limit, offset, indexes) {
   nftID = nftID.toUpperCase()
   let c = config.getConfig()
-  let query = {"id": 0, "jsonrpc": "2.0", "method": "find", "params": { "contract": "nft", "table": `${nftID}instances`, "query": query, "limit": limit, "offset": offset, "indexes": indexes } }
+  let nftQuery = {"id": 0, "jsonrpc": "2.0", "method": "find", "params": { "contract": "nft", "table": `${nftID}instances`, "query": query, "limit": limit, "offset": offset, "indexes": indexes } }
   let res
   let err
   try {
-    res = await axios.post(c.engineRPC + "contracts", query)
+    res = await axios.post(c.engineRPC + "contracts", nftQuery)
   } catch (e) {
     err = e
   }
