@@ -1,5 +1,5 @@
 let api = require("./api.js")
-let broadcast = requrie("./broadcast.js")
+let broadcast = require("./broadcast.js")
 
 
 module.exports = {
