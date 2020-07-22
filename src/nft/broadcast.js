@@ -1,5 +1,5 @@
 let config = require("../../config.js")
-let hive = require("@hiveio/hive-js")
+let hive = config.getConfig().hive
 let axios = require("axios")
 
 /**
@@ -16,20 +16,32 @@ function transfer(wif, sender, to, symbol, cardIDs) {
   to = to.toLowerCase()
   symbol = symbol.toUpperCase()
   return new Promise((resolve, reject) => {
-    if (!Array.isArray(cardIDs)){
+    if (!Array.isArray(cardIDs)) {
       reject("cardIDs must be an array.")
+      return
     }
     let c = config.getConfig()
     let sendJSON = { "contractName": "nft", "contractAction": "transfer", "contractPayload": { "to": to, "nfts": [{ "symbol": symbol, "ids": cardIDs }] } }
     hive.broadcast.customJson(wif, null, [sender], c.engineID, sendJSON, (err, result) => {
       if (err) {
-        reject(err)
+        reject({hive : err})
+        return
+      }
+      if (!c.validate){
+        resolve({hive : result, engyMessage : "Result not validated."})
+        return
       }
       //Verify then resolve
     })
   })
 }
 
+
+
+
+function verify() {
+
+}
 
 module.exports = {
   transfer

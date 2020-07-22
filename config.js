@@ -2,6 +2,8 @@ let config = {}
 
 config.engineRPC = "https://api.hive-engine.com/rpc/"
 config.engineID = "ssc-mainnet-hive"
+config.validate = true
+config.hive = require("@hiveio/hive-js")
 
 /**
  * 
