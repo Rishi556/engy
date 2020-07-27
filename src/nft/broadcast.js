@@ -22,7 +22,7 @@ function transfer(wif, sender, to, symbol, cardIDs) {
     }
     let c = config.getConfig()
     let sendJSON = { "contractName": "nft", "contractAction": "transfer", "contractPayload": { "to": to, "nfts": [{ "symbol": symbol, "ids": cardIDs }] } }
-    hive.broadcast.customJson(wif, null, [sender], c.engineID, JSON.stringify(sendJSON), (err, result) => {
+    hive.broadcast.customJson(wif, [sender], null, c.engineID, JSON.stringify(sendJSON), (err, result) => {
       if (err) {
         reject({hive : err})
         return
