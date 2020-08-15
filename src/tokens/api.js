@@ -5,6 +5,7 @@ async function getOrderBook(book, query, limit, offset, index) {
   let c = config.getConfig()
   let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "market", table: `${book}Book`, query: query, limit: limit, offset: offset, indexes: index } }
   let res
+  let err
   try {
     res = await axios.post(c.engineRPC + "contracts", tokensQuery)
   } catch (e) {
@@ -32,6 +33,7 @@ async function getTokensDetails(query, limit, offset, index) {
   let c = config.getConfig()
   let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "tokens", table: `tokens`, query: query, limit: limit, offset: offset, indexes: index } }
   let res
+  let err
   try {
     res = await axios.post(c.engineRPC + "contracts", tokensQuery)
   } catch (e) {
