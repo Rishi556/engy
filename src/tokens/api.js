@@ -3,10 +3,10 @@ let config = require("../../config.js")
 
 function getOrderBook(book, query, limit, offset, index) {
   let c = config.getConfig()
-  let query = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "market", table: `${book}Book`, query: query, limit: limit, offset: offset, indexes: index } }
+  let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "market", table: `${book}Book`, query: query, limit: limit, offset: offset, indexes: index } }
   let res
   try {
-    res = await axios.post(c.engineRPC + "contracts", query)
+    res = await axios.post(c.engineRPC + "contracts", tokensQuery)
   } catch (e) {
     err = e
   }
@@ -30,10 +30,10 @@ function getOrderBook(book, query, limit, offset, index) {
  */
 function getTokensDetails(query, limit, offset, index) {
   let c = config.getConfig()
-  let query = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "tokens", table: `tokens`, query: query, limit: limit, offset: offset, indexes: index } }
+  let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "tokens", table: `tokens`, query: query, limit: limit, offset: offset, indexes: index } }
   let res
   try {
-    res = await axios.post(c.engineRPC + "contracts", query)
+    res = await axios.post(c.engineRPC + "contracts", tokensQuery)
   } catch (e) {
     err = e
   }
