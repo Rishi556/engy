@@ -1,9 +1,9 @@
 let axios = require("axios")
 let config = require("../../config.js")
 
-async function getOrderBook(book, query, limit, offset, index) {
+async function getOrderBook(book, query, limit, offset, indexes) {
   let c = config.getConfig()
-  let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "market", table: `${book}Book`, query: query, limit: limit, offset: offset, indexes: index } }
+  let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "market", table: `${book}Book`, query: query, limit: limit, offset: offset, indexes: indexes } }
   let res
   let err
   try {
@@ -29,9 +29,9 @@ async function getOrderBook(book, query, limit, offset, index) {
  * @param {Integer} offset offset
  * @param {Array} indexes indexes
  */
-async function getTokensDetails(query, limit, offset, index) {
+async function getTokensDetails(query, limit, offset, indexes) {
   let c = config.getConfig()
-  let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "tokens", table: `tokens`, query: query, limit: limit, offset: offset, indexes: index } }
+  let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "tokens", table: `tokens`, query: query, limit: limit, offset: offset, indexes: indexes } }
   let res
   let err
   try {
@@ -57,9 +57,9 @@ async function getTokensDetails(query, limit, offset, index) {
 * @param {Integer} offset offset
 * @param {Array} indexes indexes
 */
-async function getMarketMetrics(query, limit, offset, index) {
+async function getMarketMetrics(query, limit, offset, indexes) {
  let c = config.getConfig()
- let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "market", table: `metrics`, query: query, limit: limit, offset: offset, indexes: index } }
+ let tokensQuery = { id: 0, jsonrpc: "2.0", method: "find", params: { contract: "market", table: `metrics`, query: query, limit: limit, offset: offset, indexes: indexes } }
  let res
  let err
  try {
