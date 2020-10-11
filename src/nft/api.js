@@ -45,7 +45,7 @@ async function getEntireNFTSellbook(nftID, query, indexes) {
   let offset = 0
   while (con) {
     try {
-      let newOrders = await getNFTSellBook(nftID, query, indexes, offset)
+      let newOrders = await getNFTSellBook(nftID, query, 1000, indexes, offset)
       orders = orders.concat(newOrders)
       offset = offset + 1000
       if (newOrders.length != 1000) {
@@ -65,9 +65,9 @@ async function getEntireNFTSellbook(nftID, query, indexes) {
  * @param {Array} indexes indexes
  * @param {Integer} offset offset
  */
-async function getNFTSellBook(nftID, query, indexes, offset) {
+async function getNFTSellBook(nftID, query, limit, indexes, offset) {
   let c = config.getConfig()
-  let nftQuery = { "id": 0, "jsonrpc": "2.0", "method": "find", "params": { "contract": "nftmarket", "table": `${nftID.toUpperCase()}sellBook`, "query": query, "limit": 1000, "offset": offset, "indexes": indexes } }
+  let nftQuery = { "id": 0, "jsonrpc": "2.0", "method": "find", "params": { "contract": "nftmarket", "table": `${nftID.toUpperCase()}sellBook`, "query": query, "limit": limit, "offset": offset, "indexes": indexes } }
   let res
   let err
   try {
