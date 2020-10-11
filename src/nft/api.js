@@ -62,6 +62,7 @@ async function getEntireNFTSellbook(nftID, query, indexes) {
  * 
  * @param {String} nftID ID of nft.
  * @param {JSON} query Query for hive-engine
+ * @param {Integer} limit Limit to get
  * @param {Array} indexes indexes
  * @param {Integer} offset offset
  */
