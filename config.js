@@ -4,6 +4,7 @@ config.engineRPC = "https://api.hive-engine.com/rpc/";
 config.alternateRPC = [];
 config.engineID = "ssc-mainnet-hive";
 config.validate = true;
+config.historyNode = "https://enginehistory.rishipanthee.com/";
 config.hive = require("@hiveio/hive-js");
 
 /**
