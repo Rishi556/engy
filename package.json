@@ -10,7 +10,7 @@
   "author": "Rishi Panthee",
   "license": "MIT",
   "dependencies": {
-    "@hiveio/hive-js": "^0.8.12",
+    "@hiveio/hive-js": "^2.0.4",
     "axios": "^0.21.1"
   },
   "repository": {
