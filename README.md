@@ -5,9 +5,8 @@ Hi, I really haven't developed much into engy, but I hope to make it a great and
 ### Installation
 
 With NPM:
-`npm i https://github.com/Rishi556/engy`
+`npm i engy`
 
 With Yarn
-`yarn add https://github.com/Rishi556/engy`
+`yarn add engy`
 
-I haven't published it yet as I'd like there to be some good features before publishing. If you get it from npm, you'll get the old version which works with Steem.
