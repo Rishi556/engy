@@ -13,11 +13,11 @@ let config = require("../../config.js");
 async function getNFTDetails(nftID, query, limit, offset, indexes) {
     nftID = nftID.toUpperCase();
     let c = config.getConfig();
-    let nftQuery = { "id": 0, "jsonrpc": "2.0", "method": "find", "params": { "contract": "nft", "table": `${nftID}instances`, "query": query, "limit": limit, "offset": offset, "indexes": indexes } };
+    let nftQuery = { "id": 0, "jsonrpc": "2.0", "method": "contracts.find", "params": { "contract": "nft", "table": `${nftID}instances`, "query": query, "limit": limit, "offset": offset, "indexes": indexes } };
     let res;
     let err;
     try {
-        res = await axios.post(c.engineRPC + "contracts", nftQuery);
+        res = await axios.post(c.engineRPC, nftQuery);
     } catch (e) {
         err = e;
     }
@@ -68,11 +68,11 @@ async function getEntireNFTSellbook(nftID, query, indexes) {
  */
 async function getNFTSellBook(nftID, query, limit, indexes, offset) {
     let c = config.getConfig();
-    let nftQuery = { "id": 0, "jsonrpc": "2.0", "method": "find", "params": { "contract": "nftmarket", "table": `${nftID.toUpperCase()}sellBook`, "query": query, "limit": limit, "offset": offset, "indexes": indexes } };
+    let nftQuery = { "id": 0, "jsonrpc": "2.0", "method": "contracts.find", "params": { "contract": "nftmarket", "table": `${nftID.toUpperCase()}sellBook`, "query": query, "limit": limit, "offset": offset, "indexes": indexes } };
     let res;
     let err;
     try {
-        res = await axios.post(c.engineRPC + "contracts", nftQuery);
+        res = await axios.post(c.engineRPC, nftQuery);
     } catch (e) {
         err = e;
     }
