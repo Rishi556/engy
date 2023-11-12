@@ -42,12 +42,13 @@ async function getNFTDetails(nftID, query, limit, offset, indexes) {
 async function getEntireNFTSellbook(nftID, query, indexes) {
     let orders = [];
     let con = true;
-    let offset = 0;
+    let lastID = 0;
     while (con) {
         try {
-            let newOrders = await getNFTSellBook(nftID, query, 1000, indexes, offset);
+            const modifiedQuery = {...query, "_id" : {"$gt" : lastID}};
+            let newOrders = await getNFTSellBook(nftID, modifiedQuery, 1000, indexes, 0);
             orders = orders.concat(newOrders);
-            offset = offset + 1000;
+            lastID = orders[orders.length - 1]._id;
             if (newOrders.length != 1000) {
                 con = false;
             }
