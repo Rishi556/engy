@@ -1,6 +1,6 @@
 {
   "name": "engy",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "description": "Makes using hive-engine a lot easier.",
   "main": "index.js",
   "scripts": {

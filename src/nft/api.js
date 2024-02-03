@@ -48,8 +48,11 @@ async function getEntireNFTSellbook(nftID, query, indexes) {
             const modifiedQuery = {...query, "_id" : {"$gt" : lastID}};
             let newOrders = await getNFTSellBook(nftID, modifiedQuery, 1000, indexes, 0);
             orders = orders.concat(newOrders);
-            lastID = orders[orders.length - 1]._id;
-            if (newOrders.length != 1000) {
+            if (newOrders.length){
+                lastID = orders[orders.length - 1]._id;
+            }
+            
+            if (newOrders.length !== 1000) {
                 con = false;
             }
         } catch (e) {
